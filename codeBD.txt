@@ -22,7 +22,7 @@ CREATE FUNCTION total_cadastro() returns TRIGGER as $$
 BEGIN 
 	UPDATE cadastro set qnttotalcadastro = qnttotalcadastro + 1;
     RETURN NULL;
-end;
+END
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER inserirNovoCadastro
