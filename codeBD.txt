@@ -1,6 +1,6 @@
 CREATE TABLE cliente (
-  id SERIAL primary key,
-  nome VARCHAR(50)
+	id SERIAL primary key,
+	nome VARCHAR(50)
 );
 
 CREATE TABLE cadastro (
@@ -14,17 +14,17 @@ insert into cadastro(qnt_cadastro) VALUES
 	(1);
     
 INSERT into cliente (nome) VALUES
-    ('Victor2'),
-    ('Victor3'),
-    ('Victor4'),
-    ('Victor5');
+	('Victor2'),
+	('Victor3'),
+	('Victor4'),
+	('Victor5');
     
 CREATE or REPLACE FUNCTION update_qnt_cadastro(x INT) 
 	RETURNS INT AS $$
-    BEGIN
-    	UPDATE cadastro SET qnt_cadastro = x;
-        RETURN qnt_cadastro FROM cadastro;
-    END
+	BEGIN
+    		UPDATE cadastro SET qnt_cadastro = x;
+        	RETURN qnt_cadastro FROM cadastro;
+    	END
 $$ LANGUAGE PLPGSQL;
 
 SELECT * from cliente;
