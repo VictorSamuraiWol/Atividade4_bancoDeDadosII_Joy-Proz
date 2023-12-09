@@ -1,0 +1,43 @@
+--------------1º Passo----------------
+CREATE TABLE cliente (
+  id SERIAL primary key,
+  nome VARCHAR(50)
+);
+
+CREATE TABLE cadastro (
+  ID SERIAL PRIMARY KEY,
+  CONSTRAINT fk_idCliente FOREIGN key (ID) REFERENCES cliente(ID),
+  qntTotalCadastro INT
+);
+
+--------------2º Passo----------------
+INSERT into cliente (nome) VALUES
+	('Victor1');
+    
+insert into cadastro(qnttotalcadastro) VALUES
+	(1);
+    
+--------------3º Passo----------------
+CREATE FUNCTION total_cadastro() returns TRIGGER as $$
+BEGIN 
+	UPDATE cadastro set qnttotalcadastro = qnttotalcadastro + 1;
+    RETURN NULL;
+end;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER inserirNovoCadastro
+AFTER INSERT
+on cliente
+for EACH ROW 
+EXECUTE PROCEDURE total_cadastro();
+
+--------------4º Passo----------------
+INSERT into cliente (nome) VALUES
+	('Victor2'),
+	('Victor3'), 
+    ('Victor4');
+
+--------------5º Passo----------------
+SELECT * from cliente;
+SELECT * FROM cadastro;
+___________________________________________________
