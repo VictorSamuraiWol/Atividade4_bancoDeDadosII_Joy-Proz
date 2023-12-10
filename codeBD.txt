@@ -1,3 +1,5 @@
+Exemplo 1 - Utilizando função
+
 CREATE TABLE cliente (
 	id SERIAL primary key,
 	nome VARCHAR(50)
@@ -31,3 +33,48 @@ SELECT * from cliente;
 SELECT * from cadastro;
 SELECT update_qnt_cadastro(5);
 
+Exemplo 2 - Utilizando função e trigger
+
+-----------1º passo-------------
+CREATE TABLE cadastro (
+	ID SERIAL PRIMARY KEY,
+	qnt_cadastro INT
+);
+
+CREATE TABLE cliente (
+	id SERIAL primary key,
+	nome VARCHAR(50)
+);
+
+insert into cadastro (qnt_cadastro) VALUES
+	(0);
+INSERT into cliente (nome) VALUES
+	('Empresa');
+    
+-----------2º passo-------------	
+CREATE or REPLACE FUNCTION update_qnt_cadastro() 
+RETURNS TRIGGER AS $$
+BEGIN
+    update cadastro set qnt_cadastro = qnt_cadastro + 1;
+    RETURN NULL;
+END
+$$ LANGUAGE PLPGSQL;
+    
+CREATE TRIGGER inserirNovoCliente
+AFTER INSERT or UPDATE
+on cliente
+for EACH ROW 
+EXECUTE PROCEDURE update_qnt_cadastro();
+
+-----------3º passo-------------
+INSERT into cliente (nome) VALUES
+	('Victor1');
+    
+INSERT into cliente (nome) VALUES
+	('Victor2'),
+	('Victor3'),
+	('Victor4'),
+	('Victor5');
+
+SELECT * from cliente;
+SELECT * from cadastro;
