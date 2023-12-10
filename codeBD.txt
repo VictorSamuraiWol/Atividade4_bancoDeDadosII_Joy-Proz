@@ -1,4 +1,4 @@
-Exemplo 1 - Utilizando função
+--> Exemplo 1 - Utilizando função
 
 CREATE TABLE cliente (
 	id SERIAL primary key,
@@ -33,7 +33,7 @@ SELECT * from cliente;
 SELECT * from cadastro;
 SELECT update_qnt_cadastro(5);
 
-Exemplo 2 - Utilizando função e trigger
+--> Exemplo 2 - Utilizando função e trigger
 
 -----------1º passo-------------
 CREATE TABLE cadastro (
